@@ -1,0 +1,13 @@
+<div id="modal-content-wrapper">
+  <header id="modal-header">
+    <h1 id="modal-title">{{title}}</h1>
+  </header>
+  <section id="modal-body">
+    <p>Введите номер вашей машины</p>
+    <input type="text" [(ngModel)]="number"/>
+  </section>
+  <footer id="modal-footer">
+    <button id="modal-action-button" (click)="onAcceptClick()">Ок</button>
+    <button id="modal-cancel-button" (click)="onCloseClick()">Отмена</button>
+  </footer>
+</div>

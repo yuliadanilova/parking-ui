@@ -1,0 +1,18 @@
+<p style="text-align:center"><strong>Список парковок</strong></p>
+
+<p-table [value]="parkings">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Адрес</th>
+      <th>Открыта сейчас</th>
+      <th>Стоимость</th>
+    </tr>
+  </ng-template>
+  <ng-template  pTemplate="body" let-parking>
+    <tr>
+      <td><a [routerLink]="['/parking', parking.id]">{{parking.address}}</a></td>
+      <td>{{parking.isOpenNow ? 'Открыто' : 'Закрыто'}}</td>
+      <td>{{parking.price}} руб/ч</td>
+    </tr>
+  </ng-template>
+</p-table>

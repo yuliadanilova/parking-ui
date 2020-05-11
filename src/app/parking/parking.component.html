@@ -1,0 +1,46 @@
+<div *ngIf="parking">
+  <p style="text-align:center"><strong>Основная информация</strong></p>
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-4">
+       <label>Название</label>
+        {{parking.name}}
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <label>Адрес</label>
+        {{parking.address}}
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <label>Стоимость</label>
+        {{parking.price}} руб/ч
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <label>Тип оплаты</label>
+        {{parking.payType}}
+    </div>
+  </div>
+
+  <div class="ui-g ui-fluid">
+    <div class="ui-g-12 ui-md-4">
+      <label>Часы работы</label>
+      {{parking.workingHours}}
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <label>Количество мест</label>
+      {{parking.numberOfPlaces}}
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <label>Количество свободных мест</label>
+      {{parking.availablePlaces}}
+    </div>
+  </div>
+
+  <div class="ui-g ui-fluid">
+    <div>
+      <button *ngIf="parking.availablePlaces > 0" (click)="onBookingClick()" type="button">Забронировать место</button>
+      <button *ngIf="parking.occupiedPlaces > 0" (click)="onPayClick()" type="button">Оплатить место</button>
+      <button (click)="onLeaveClick()" type="button">Освободить место</button>
+    </div>
+    <button [routerLink]="['/search']" type="button">Назад к списку</button>
+  </div>
+
+</div>
