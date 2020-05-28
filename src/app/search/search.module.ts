@@ -5,12 +5,9 @@ import { TableModule } from 'primeng/table';
 import { RouterModule } from '@angular/router';
 import {GMapModule, TabViewModule} from 'primeng/primeng';
 import { MapComponent } from './map/map.component';
-import { GMapComponent } from './g-map/g-map.component';
-
-
 
 @NgModule({
-  declarations: [SearchComponent, MapComponent, GMapComponent],
+  declarations: [SearchComponent, MapComponent],
   imports: [
     CommonModule,
     TableModule,

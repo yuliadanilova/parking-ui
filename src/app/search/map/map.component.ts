@@ -1,87 +1,52 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Map, View, Feature} from 'ol';
-import VectorLayer from 'ol/layer/Vector';
-import OSM from 'ol/source/OSM';
-import TileLayer from 'ol/layer/Tile';
-import {fromLonLat} from 'ol/proj';
-import VectorSource from 'ol/source/Vector';
-import Icon from 'ol/style/Icon';
-import Style from 'ol/style/Style';
-import Point from 'ol/geom/Point';
-import {SearchService} from '../search.service';
-import {Router} from '@angular/router';
-import Overlay from "ol/Overlay";
-import { toStringHDMS } from "ol/coordinate";
-import { fromLonLat, toLonLat } from "ol/proj";
+import { Component, OnInit } from '@angular/core';
+
+declare var google: any;
 
 @Component({
-  selector: 'map',
+  selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
 
-  public vectorLayer: VectorLayer;
-  public vectorSource: VectorSource;
-  public osmTileLayer: TileLayer;
-  public map;
-  public iconStyle;
+  options: any;
 
-  constructor(private searchService: SearchService, private router: Router) { }
+  overlays: any[];
+
+  infoWindow: any;
 
   ngOnInit() {
-    this.vectorSource = new VectorSource();
-    this.iconStyle = new Style({
-      image: new Icon({
-       // anchor: [0.5, 46],
-       // anchorXUnits: 'fraction',
-      //  anchorYUnits: 'pixels',
-        crossOrigin: 'anonymos',
-        src: 'assets/icon.png',
-        //scale: 1,
-        imgSize: [60, 60]
-      })
-    });
-    this.searchService.getParkings().subscribe((data) => {
-      data.forEach(p => {
-        let geom = new Point(fromLonLat([p.lon, p.lat]));
-        let feature = new Feature({
-          geometry: geom,
-          info: p,
-        });
-        feature.setStyle(this.iconStyle);
-        this.vectorSource.addFeature(feature);
-      });
-    });
+    this.options = {
+      center: {lat: 59.931391, lng: 30.358760},
+      zoom: 12
+    };
 
-    this.osmTileLayer = new TileLayer({
-      source: new OSM(),
-      zIndex: 1,
-      visible: true
-    });
+    this.infoWindow = new google.maps.InfoWindow();
 
-    this.vectorLayer = new VectorLayer({
-      source: this.vectorSource,
-      zIndex: 3,
-      visible: true
-    });
+    this.overlays = [
+      new google.maps.Marker({position: {lat: 59.932341, lng: 30.318734}, title:"Konyaalti", url: '/parking/1'}),
+      new google.maps.Marker({position: {lat: 59.921543, lng: 30.358760}, title:"Ataturk Park", url: '/parking/2'}),
+      new google.maps.Marker({position: {lat: 59.951315, lng: 30.388743}, title:"Oldtown", url: '/parking/2'}),
+    ];
+  }
 
-    this.osmTileLayer = new TileLayer({
-      source: new OSM(),
-      zIndex: 1
-    });
+  handleMapClick(event) {
+    //event: MouseEvent of Google Maps api
+  }
 
-    this.map = new Map({
-      target: 'mapOL',
-      layers: [
-        this.osmTileLayer,
-        this.vectorLayer
-      ],
-      view: new View({
-        center: fromLonLat([30.358760, 59.931391]),
-        zoom: 13
-      })
-    });
+  handleOverlayClick(event) {
+    const isMarker = event.overlay.getTitle != undefined;
 
+    if (isMarker) {
+      const title = event.overlay.getTitle();
+      const url = event.overlay.url;
+      this.infoWindow.setContent(this.getTooltipContent(title, url));
+      this.infoWindow.open(event.map, event.overlay);
+      event.map.setCenter(event.overlay.getPosition());
+    }
+  }
+
+  private getTooltipContent(title: string, url: string): string {
+    return`<p>${title}</p><p><a href="${url}">Открыть</a></p>`;
   }
 }

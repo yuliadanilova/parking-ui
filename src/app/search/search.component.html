@@ -2,6 +2,9 @@
 
 <a type="button" [routerLink]="['/map']">Посмотреть парковки на карте</a>
 
+
+<p-tabView>
+  <p-tabPanel header="Список">
     <p-table [value]="parkings">
       <ng-template pTemplate="header">
         <tr>
@@ -18,5 +21,10 @@
         </tr>
       </ng-template>
     </p-table>
+  </p-tabPanel>
+  <p-tabPanel header="Карта">
+    <app-map></app-map>
+  </p-tabPanel>
+</p-tabView>
 
 
