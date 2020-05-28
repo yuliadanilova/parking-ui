@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 declare var google: any;
 
@@ -31,11 +31,11 @@ export class MapComponent implements OnInit {
   }
 
   handleMapClick(event) {
-    //event: MouseEvent of Google Maps api
+    // event: MouseEvent of Google Maps api
   }
 
   handleOverlayClick(event) {
-    const isMarker = event.overlay.getTitle != undefined;
+    const isMarker = event.overlay.getTitle !== undefined;
 
     if (isMarker) {
       const title = event.overlay.getTitle();
@@ -47,6 +47,6 @@ export class MapComponent implements OnInit {
   }
 
   private getTooltipContent(title: string, url: string): string {
-    return`<p>${title}</p><p><a href="${url}">Открыть</a></p>`;
+    return`<p>${title}</p><p><a href="${url}">Открыть в отдельном окне</a></p>`;
   }
 }

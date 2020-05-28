@@ -10,18 +10,11 @@ import { SearchService } from './search.service';
 export class SearchComponent implements OnInit {
 
   public parkings: Parking[] = [];
-  public options: any;
-
-  public overlays: any[];
 
   constructor(private searchService: SearchService) { }
 
   ngOnInit() {
     this.getTableData();
-    this.options = {
-      center: {lat: 36.890257, lng: 30.707417},
-      zoom: 12
-    };
   }
 
   private getTableData(): void {
