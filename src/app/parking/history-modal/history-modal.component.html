@@ -1,0 +1,11 @@
+<div id="modal-content-wrapper">
+  <section id="modal-body">
+    <div *ngFor="let his of history">
+      <p>Номер машины: {{his.numberCar}}</p>
+      <p>Дата парковки: {{his.parkingStart}}</p>
+    </div>
+  </section>
+  <footer id="modal-footer">
+    <button id="modal-action-button" (click)="onDialogClose()">ОK</button>
+  </footer>
+</div>

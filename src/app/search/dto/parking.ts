@@ -9,4 +9,7 @@ export class Parking {
   public payType: string;
   public isOpenNow: boolean;
   public workingHours: any;
+  public historyParking: any;
+  public lon: any;
+  public lat: any;
 }

@@ -1,0 +1,13 @@
+#mapOL {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  top: 50px;
+}
+.popup {
+  border-radius: 5px;
+  border: 1px solid grey;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2px;
+}

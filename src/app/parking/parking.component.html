@@ -22,7 +22,8 @@
   <div class="ui-g ui-fluid">
     <div class="ui-g-12 ui-md-4">
       <label>Часы работы</label>
-      {{parking.workingHours}}
+      Пн - Вс
+      {{parking.workingHours['1'][0]}} - {{parking.workingHours['1'][1]}}
     </div>
     <div class="ui-g-12 ui-md-4">
       <label>Количество мест</label>
@@ -41,6 +42,7 @@
       <button (click)="onLeaveClick()" type="button">Освободить место</button>
     </div>
     <button [routerLink]="['/search']" type="button">Назад к списку</button>
+    <button *ngIf="parking.historyParking && parking.historyParking.length > 0" (click)="onHistoryClick()" type="button">История парковки</button>
   </div>
 
 </div>

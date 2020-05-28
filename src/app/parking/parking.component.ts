@@ -6,6 +6,7 @@ import { Parking } from '../search/dto/parking';
 import { DialogService } from 'primeng/api';
 import { BookingModalComponent } from './booking-modal/booking-modal.component';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
+import {HistoryModalComponent} from './history-modal/history-modal.component';
 
 @Component({
   selector: 'parking',
@@ -52,7 +53,7 @@ export class ParkingComponent implements OnInit {
           this.parkingService.leaveParkingPlace(this.id, res)
             .subscribe(() => {
               this.dialogService.open(ConfirmationModalComponent, {
-                data: {message: 'Автомобиль с номером: ' + res + 'покинул данную парковку'}
+                data: {message: 'Автомобиль с номером: ' + res + ' покинул данную парковку'}
               }).onClose.subscribe(() => this.router.navigate(['/search']));
             }, error => {
             console.log(error);
@@ -74,5 +75,9 @@ export class ParkingComponent implements OnInit {
             });
         }
     });
+  }
+
+  public onHistoryClick(): void {
+    this.dialogService.open(HistoryModalComponent, {data: {history: this.parking.historyParking}});
   }
 }

@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmationModalComponent } from './parking/confirmation-modal/confirmation-modal.component';
+import {HistoryModalComponent} from './parking/history-modal/history-modal.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ConfirmationModalComponent } from './parking/confirmation-modal/confirm
   ],
   entryComponents: [
     BookingModalComponent,
-    ConfirmationModalComponent
+    ConfirmationModalComponent,
+    HistoryModalComponent
   ],
   providers: [DialogService],
   bootstrap: [AppComponent]

@@ -26,4 +26,8 @@ export class ParkingService {
   public leaveParkingPlace(id: number, carNumber: string): Observable<any> {
     return this.httpClient.delete<any>('http://localhost:8080/v1/parking/' + id + '/car' + '?carNumber=' + carNumber);
   }
+
+  public test(): Observable<any> {
+    return this.httpClient.post<any>('http://localhost:8080/v1/parking/test', {});
+  }
 }
