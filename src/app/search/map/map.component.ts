@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {SearchService} from '../search.service';
 
 declare var google: any;
 
@@ -11,11 +12,22 @@ export class MapComponent implements OnInit {
 
   options: any;
 
-  overlays: any[];
+  overlays = [];
 
   infoWindow: any;
 
-  ngOnInit() {
+  constructor(private searchService: SearchService) {}
+
+   ngOnInit() {
+
+    this.searchService.getParkings().subscribe((parkings) => {
+      parkings.forEach((park) => {
+        this.overlays.push(new google.maps.Marker({
+          position: {lat: park.lat, lng: park.lon}, title: park.address, url: '/parking/' + park.id
+        }));
+      });
+    });
+
     this.options = {
       center: {lat: 59.931391, lng: 30.358760},
       zoom: 12
@@ -23,15 +35,10 @@ export class MapComponent implements OnInit {
 
     this.infoWindow = new google.maps.InfoWindow();
 
-    this.overlays = [
-      new google.maps.Marker({position: {lat: 59.932341, lng: 30.318734}, title:"Konyaalti", url: '/parking/1'}),
-      new google.maps.Marker({position: {lat: 59.921543, lng: 30.358760}, title:"Ataturk Park", url: '/parking/2'}),
-      new google.maps.Marker({position: {lat: 59.951315, lng: 30.388743}, title:"Oldtown", url: '/parking/2'}),
-    ];
   }
 
   handleMapClick(event) {
-    // event: MouseEvent of Google Maps api
+    console.log(event);
   }
 
   handleOverlayClick(event) {
@@ -47,6 +54,6 @@ export class MapComponent implements OnInit {
   }
 
   private getTooltipContent(title: string, url: string): string {
-    return`<p>${title}</p><p><a href="${url}">Открыть в отдельном окне</a></p>`;
+    return`<p>${title}</p><p><a href="${url}">Подробнее о парковке</a></p>`;
   }
 }
